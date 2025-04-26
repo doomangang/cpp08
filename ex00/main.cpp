@@ -56,12 +56,12 @@ int main() {
     std::cout << GREEN << std::endl;
     testVector(v, 30);
     testVector(v, 99);
-    std::cout << YELLOW<< std::endl;
+    std::cout << YELLOW << std::endl;
     testList(l, 300);
     testList(l, 1234);
-    std::cout << BLUE<< std::endl;
+    std::cout << BLUE << std::endl;
     testDeque(d, 3000);
     testDeque(d, -1);
-    std::cout << RESET<< std::endl;
+    std::cout << RESET << std::endl;
     return 0;
 }
