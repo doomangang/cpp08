@@ -3,7 +3,8 @@
 
 #include <iostream>
 #include <set>
-#include <exception>
+#include <stdexcept>
+#include <iterator>
 #include <limits>
 
 /* Color Sets */
@@ -21,9 +22,14 @@
 class Span {
 private:
     /* member attributes */
+    unsigned int _maxSize;
+    std::multiset<int> _data;
+
+    Span();
+
 public:
     /* Orthodox Canonical Form (OCF) */
-    Span();
+    Span(unsigned int N);
     Span(const Span& other);
     ~Span();
     Span& operator=(const Span& other);
@@ -31,10 +37,22 @@ public:
     /* getter & setter */
 
     /* additional methods */
-    void    addNumber();
-    void    addNumbers();
-    unsigned int  shortestSpan();
-    unsigned int  longestSpan();
+    void    addNumber(int x);
+
+    template <typename InputIter>
+    void    addNumber(InputIter first, InputIter last) {
+        typename std::iterator_traits<InputIter>::difference_type cnt = std::distance(first, last);
+        if (cnt < 0)
+            throw std::invalid_argument("Invalid range");
+
+        if (_data.size() + static_cast<size_t>(cnt) > _maxSize)
+            throw std::out_of_range("Span capacity exceeded");
+
+        _data.insert(first, last);
+    }
+
+    unsigned int  shortestSpan() const;
+    unsigned int  longestSpan() const;
     /* exception classes */
 };
 
